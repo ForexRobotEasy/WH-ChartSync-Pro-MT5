@@ -1,0 +1,73 @@
+
+// +------------------------------------------------------------------+
+// |                                                   WH ChartSync Pro MT5 |
+// |                                 ------------------------------------|
+// |                                |                              Forex Robot Easy Team|
+// |                                |                            Developer's Site: forexroboteasy.com |
+// +------------------------------------------------------------------+
+
+// Import necessary libraries
+#include <Trade\Trade.mqh>
+#include <ChartObjects\ChartObjects.mqh>
+
+// Define variables
+CTrade trade; // Create an instance of the CTrade class
+int magicNumber = 123; // Magic number for trade identification
+
+//+------------------------------------------------------------------+
+//| Expert initialization function                                   |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Enable real-time synchronization of charts
+   ChartSetInteger(0, CHART_SYNC, true);
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Expert deinitialization function                                 |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Disable real-time synchronization of charts
+   ChartSetInteger(0, CHART_SYNC, false);
+}
+
+//+------------------------------------------------------------------+
+//| Expert tick function                                             |
+//+------------------------------------------------------------------+
+void OnTick()
+{
+   // Get current chart symbol
+   string symbol = Symbol();
+
+   // Get current chart timeframe
+   ENUM_TIMEFRAMES timeframe = Period();
+
+   // Perform Forex market analysis using advanced algorithms
+   double marketAnalysis = PerformMarketAnalysis(symbol, timeframe);
+
+   // Make trading decision based on market analysis
+   if (marketAnalysis > 0)
+   {
+      // Open a buy trade
+      trade.Buy(0.1, symbol, 0, 0, 0, NULL, NULL, magicNumber);
+   }
+   else if (marketAnalysis < 0)
+   {
+      // Open a sell trade
+      trade.Sell(0.1, symbol, 0, 0, 0, NULL, NULL, magicNumber);
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Function to perform Forex market analysis                        |
+//+------------------------------------------------------------------+
+double PerformMarketAnalysis(const string symbol, const ENUM_TIMEFRAMES timeframe)
+{
+   // Add your advanced analysis logic here
+   // ...
+   // Return the market analysis result
+   return 0.5;
+}
